@@ -19,7 +19,16 @@ class _VisualizationTabState extends State<VisualizationTab> {
   String _detailLevel = 'High';
 
   final List<String> _sheets = ['Sheet 1', 'Sheet 2', 'Sheet 3'];
-  final List<String> _chartTypes = ['Bar Chart', 'Line Chart', 'Pie Chart', '3D Plot Simulation'];
+  final List<String> _chartTypes = [
+    'Bar Chart',
+    'Line Chart',
+    'Area Chart',
+    'Pie Chart',
+    'Doughnut Chart',
+    'Scatter Plot',
+    'Radar Chart',
+    '3D Plot Simulation'
+  ];
 
   void _pickColor() {
     showDialog(
@@ -65,6 +74,33 @@ class _VisualizationTabState extends State<VisualizationTab> {
             titlesData: FlTitlesData(
               bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: _showLabels)),
               leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: _showLabels)),
+              topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+              rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            ),
+          ),
+        );
+        break;
+      case 'Area Chart':
+        chart = LineChart(
+          LineChartData(
+            lineBarsData: [
+              LineChartBarData(
+                spots: const [FlSpot(0, 1), FlSpot(1, 3), FlSpot(2, 2), FlSpot(3, 5)],
+                color: _chartColor,
+                barWidth: 2 * _chartSize,
+                isCurved: true,
+                belowBarData: BarAreaData(
+                  show: true,
+                  color: _chartColor.withOpacity(0.3),
+                ),
+                dotData: FlDotData(show: _showLabels),
+              ),
+            ],
+            titlesData: FlTitlesData(
+              bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: _showLabels)),
+              leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: _showLabels)),
+              topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+              rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
             ),
           ),
         );
@@ -77,6 +113,59 @@ class _VisualizationTabState extends State<VisualizationTab> {
               PieChartSectionData(value: 30, color: _chartColor.withOpacity(0.7), title: _showLabels ? 'B' : '', radius: 50 * _chartSize),
               PieChartSectionData(value: 30, color: _chartColor.withOpacity(0.4), title: _showLabels ? 'C' : '', radius: 50 * _chartSize),
             ],
+          ),
+        );
+        break;
+      case 'Doughnut Chart':
+        chart = PieChart(
+          PieChartData(
+            sectionsSpace: 2,
+            centerSpaceRadius: 40 * _chartSize,
+            sections: [
+              PieChartSectionData(value: 40, color: _chartColor, title: _showLabels ? 'A' : '', radius: 30 * _chartSize),
+              PieChartSectionData(value: 30, color: _chartColor.withOpacity(0.7), title: _showLabels ? 'B' : '', radius: 30 * _chartSize),
+              PieChartSectionData(value: 30, color: _chartColor.withOpacity(0.4), title: _showLabels ? 'C' : '', radius: 30 * _chartSize),
+            ],
+          ),
+        );
+        break;
+      case 'Scatter Plot':
+        chart = ScatterChart(
+          ScatterChartData(
+            scatterSpots: [
+              ScatterSpot(1, 2, dotPainter: FlDotCirclePainter(color: _chartColor, radius: 4 * _chartSize)),
+              ScatterSpot(3, 1.5, dotPainter: FlDotCirclePainter(color: _chartColor, radius: 6 * _chartSize)),
+              ScatterSpot(4, 4, dotPainter: FlDotCirclePainter(color: _chartColor, radius: 8 * _chartSize)),
+              ScatterSpot(6, 3, dotPainter: FlDotCirclePainter(color: _chartColor, radius: 5 * _chartSize)),
+            ],
+            titlesData: FlTitlesData(
+              bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: _showLabels)),
+              leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: _showLabels)),
+              topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+              rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            ),
+          ),
+        );
+        break;
+      case 'Radar Chart':
+        chart = RadarChart(
+          RadarChartData(
+            radarTouchData: RadarTouchData(enabled: false),
+            dataSets: [
+              RadarDataSet(
+                fillColor: _chartColor.withOpacity(0.2),
+                borderColor: _chartColor,
+                entryRadius: 3 * _chartSize,
+                dataEntries: const [
+                  RadarEntry(value: 3),
+                  RadarEntry(value: 2),
+                  RadarEntry(value: 4),
+                  RadarEntry(value: 1),
+                  RadarEntry(value: 5),
+                ],
+              )
+            ],
+            getTitle: (index, angle) => _showLabels ? RadarChartTitle(text: 'Dim $index') : const RadarChartTitle(text: ''),
           ),
         );
         break;
@@ -131,6 +220,8 @@ class _VisualizationTabState extends State<VisualizationTab> {
             titlesData: FlTitlesData(
               bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: _showLabels)),
               leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: _showLabels)),
+              topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+              rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
             ),
           ),
         );

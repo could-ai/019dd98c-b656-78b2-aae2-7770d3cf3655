@@ -41,9 +41,38 @@ class HomeTab extends StatelessWidget {
               ).animate().fade(delay: 400.ms).slideY(begin: 0.5, end: 0, duration: 500.ms),
               const SizedBox(height: 30),
               Text(
-                'Recent Activity',
+                'Reports & Dashboards',
                 style: Theme.of(context).textTheme.titleLarge,
               ).animate().fade(delay: 600.ms),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildReportCard(
+                      context,
+                      'Q1 Sales Analysis',
+                      'Updated 2 hrs ago',
+                      Icons.trending_up,
+                      Colors.greenAccent,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: _buildReportCard(
+                      context,
+                      'User Engagement',
+                      'Updated yesterday',
+                      Icons.people,
+                      Colors.purpleAccent,
+                    ),
+                  ),
+                ],
+              ).animate().fade(delay: 700.ms).slideY(),
+              const SizedBox(height: 30),
+              Text(
+                'Recent Activity',
+                style: Theme.of(context).textTheme.titleLarge,
+              ).animate().fade(delay: 800.ms),
               const SizedBox(height: 10),
               ...List.generate(5, (index) {
                 return Card(
@@ -54,16 +83,37 @@ class HomeTab extends StatelessWidget {
                       backgroundColor: Colors.blueAccent,
                       child: Icon(Icons.history, color: Colors.white),
                     ),
-                    title: Text('Report generated - ${DateTime.now().subtract(Duration(days: index)).toString().substring(0, 10)}'),
-                    subtitle: const Text('K-Means clustering on sales data'),
+                    title: Text('Activity logged - ${DateTime.now().subtract(Duration(days: index)).toString().substring(0, 10)}'),
+                    subtitle: const Text('Data model processed'),
                     trailing: const Icon(Icons.chevron_right),
                   ),
-                ).animate().fade(delay: Duration(milliseconds: 800 + (index * 100))).slideX();
+                ).animate().fade(delay: Duration(milliseconds: 900 + (index * 100))).slideX();
               }),
               const SizedBox(height: 80), // padding for bottom nav
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildReportCard(BuildContext context, String title, String subtitle, IconData icon, Color color) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor.withOpacity(0.6),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.white10),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, size: 30, color: color),
+          const SizedBox(height: 10),
+          Text(title, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+          const SizedBox(height: 5),
+          Text(subtitle, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.white70)),
+        ],
       ),
     );
   }

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 import '../tabs/home_tab.dart';
+import '../tabs/sources_tab.dart';
+import '../tabs/query_tab.dart';
 import '../tabs/visualization_tab.dart';
-import '../tabs/menu_tab.dart';
 import '../tabs/settings_tab.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -19,8 +20,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   final List<Widget> _screens = [
     const HomeTab(),
+    const SourcesTab(),
+    const QueryTab(),
     const VisualizationTab(),
-    const MenuTab(),
     const SettingsTab(),
   ];
 
@@ -34,8 +36,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
         height: 60.0,
         items: const <Widget>[
           Icon(Icons.home, size: 30, color: Colors.white),
+          Icon(Icons.storage, size: 30, color: Colors.white),
+          Icon(Icons.auto_awesome, size: 30, color: Colors.white),
           Icon(Icons.insert_chart, size: 30, color: Colors.white),
-          Icon(Icons.menu, size: 30, color: Colors.white),
           Icon(Icons.settings, size: 30, color: Colors.white),
         ],
         color: const Color(0xFF1E293B),
